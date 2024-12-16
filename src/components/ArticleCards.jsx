@@ -1,7 +1,7 @@
 function ArticleCards({ article }) {
 
   return (
-    <div>
+    <div className="article-card">
       <h3>{article.title}</h3>
       <img className="article-image" src={article.article_img_url} alt={article.title} />
       <p>Author: {article.author}</p>

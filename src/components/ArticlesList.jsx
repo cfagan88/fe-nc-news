@@ -15,7 +15,7 @@ function ArticlesList() {
   return (
     <>
       <h2>Latest Articles</h2>
-      <ul>
+      <ul className="article-list">
         {articles.map((article) => {
           return <ArticleCards key={article.article_id} article={article} />;
         })}

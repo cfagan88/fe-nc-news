@@ -1,4 +1,3 @@
-import './App.css'
 import { Route, Routes } from "react-router";
 import Header from './components/Header'
 import ArticlesList from './components/ArticlesList'

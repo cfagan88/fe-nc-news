@@ -1,10 +1,10 @@
 function Header() {
   return (
     <>
-      <h1 className="header">NC News</h1>
-      <nav>
-        <p className="nav-bar">Home</p>
-        <p className="nav-bar">Topics</p>
+      <nav className="navbar">
+      <h1>NC News</h1>
+        <p>All Articles</p>
+        <p>Topics</p>
       </nav>
     </>
   );
