@@ -1,9 +1,15 @@
+import { Link } from "react-router";
+
 function Header() {
   return (
     <>
       <nav className="navbar">
-      <h1>NC News</h1>
-        <p>All Articles</p>
+        <Link to="/">
+          <h1>NC News</h1>
+        </Link>
+        <Link to="/">
+          <p>All Articles</p>
+        </Link>
         <p>Topics</p>
       </nav>
     </>
