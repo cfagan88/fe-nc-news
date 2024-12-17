@@ -10,6 +10,7 @@ function Articles() {
   const [isError, setIsError] = useState(false);
 
     useEffect(() => {
+      setIsLoading(true);
       fetchAllArticles().then((articles) => {
         setArticles(articles);
         setIsLoading(false);

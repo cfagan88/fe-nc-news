@@ -1,6 +1,7 @@
 import { fetchArticle } from "../api";
+import CommentsList from "./CommentsList";
 import { useParams } from "react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Lottie from "lottie-react";
 import loadingAnimation from "../assets/loadingAnimation.json";
 
@@ -11,15 +12,18 @@ function SingleArticle() {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  fetchArticle(articleId)
-    .then((fetchedArticle) => {
-      setArticle(fetchedArticle);
-      setIsLoading(false);
-    })
-    .catch((error) => {
-      setIsLoading(false);
-      setIsError(true);
-    });
+  useEffect(() => {
+    setIsLoading(true);
+    fetchArticle(articleId)
+      .then((fetchedArticle) => {
+        setArticle(fetchedArticle);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setIsError(true);
+      });
+  }, [])
 
   if (isLoading) {
     return (
@@ -34,9 +38,8 @@ function SingleArticle() {
   return (
     <section className="single-article">
       <h3>{article.title}</h3>
-      <p>{article.author}</p>
-      {/* <p>{article.created_at.split("T")[0]}</p> */}
-      {/* Line above is throwing an error as article.created_at is undefined. If I comment out, then add back in, it renders correctly. Assume its something to do with async but I can't work out why this would only occur on this one property? */}
+      <p className="single-article-author">{article.author}</p>
+      <p>{article.created_at.split("T")[0]}</p>
       <img
         className="single-article-image"
         src={article.article_img_url}
@@ -44,6 +47,7 @@ function SingleArticle() {
       />
       <p>{article.body}</p>
       <p>See more articles on: {article.topic}</p>
+      <CommentsList articleId={articleId} />
     </section>
   );
 }
