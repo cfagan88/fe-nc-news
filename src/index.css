@@ -7,7 +7,8 @@
 }
 
 .navbar {
-  background-color: rgb(13, 13, 99);
+  background-color: rgb(51, 33, 85);
+  width: 200%;
   padding: 20px;
   margin-bottom: 20px;
   display: flex;
@@ -28,39 +29,90 @@
   padding: 6px;
 }
 
+main {
+  width: 100%;
+}
+
+.home-title {
+  width: 100%;
+}
+
 .article-list {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+  margin-bottom: 30px;
 }
 
 .article-card {
-  max-width: 50%;
+  width: 45%;
   text-align: center;
-  padding: 10px 20px;
+  padding: 30px 0px;
+  display: grid;
 }
 
 .article-card h3 {
   text-wrap: wrap;
+  width: 100%;
 }
 
 .all-articles-images {
   border-radius: 8px;
-  max-width: 40%;
-  min-width: 200px;
+  max-width: 50%;
+  min-width: 250px;
   height: auto;
+}
+
+.single-article {
+  width: 100%;
+  margin-left: 2%;
 }
 
 .single-article h3 {
   font-size: 30px;
 }
 
+.single-article-author {
+  font-weight: 1000;
+}
+
 .single-article-image {
   border-radius: 8px;
-  max-width: 40%;
+  max-width: 35%;
   min-width: 300px;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+.comments-list {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 70px;
+}
+
+.comment-card {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(228, 220, 241);
+  border-radius: 8px;
+}
+
+.comment-card-author {
+  font-weight: 1000;
+}
+
+.comment-card-body {
+  font-style: italic;
+}
+
+.comment-card-votes {
+  color: rgb(128, 5, 128);
+  font-weight: 500;
 }
 
 .loading-animation {
@@ -77,9 +129,11 @@ footer {
   bottom: 0;
   width: 100%;
   text-align: center;
+  border-top: 1px solid #333;
 }
 
 footer p {
   display: inline;
   margin: 20px;
+  width: 100%;
 }
