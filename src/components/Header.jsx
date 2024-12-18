@@ -11,6 +11,9 @@ function Header() {
           <p>All Articles</p>
         </Link>
         <p>Topics</p>
+        <Link to="/user-login">
+          <button>Login</button>
+        </Link>
       </nav>
     </header>
   );

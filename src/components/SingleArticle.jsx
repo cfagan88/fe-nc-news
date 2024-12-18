@@ -57,7 +57,7 @@ function SingleArticle() {
 
   return (
     <section className="single-article">
-      <h3>{article.title}</h3>
+      <h2>{article.title}</h2>
       <p className="single-article-author">{article.author}</p>
       <p>{article.created_at.split("T")[0]}</p>
       <img

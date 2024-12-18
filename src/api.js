@@ -26,6 +26,13 @@ export const fetchComments = (articleId) => {
     });
 };
 
-export const patchArticleVotes = (articleId, input) => {
-  return ncNewsApi.patch(`/articles/${articleId}`, {inc_votes: input})
-}
+export const patchArticleVotes = (articleId, voteCount) => {
+  return ncNewsApi.patch(`/articles/${articleId}`, { inc_votes: voteCount });
+};
+
+export const postNewComment = (articleId, {name}, commentText) => {
+  return ncNewsApi.post(`/articles/${articleId}/comments`, {
+    username: name,
+    body: commentText,
+  });
+};

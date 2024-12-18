@@ -1,13 +1,38 @@
-import { useState, useEffect } from "react";
-import { fetchComments } from "../api";
+import { useState, useEffect, useContext } from "react";
+import { fetchComments, postNewComment } from "../api";
+import { UserContext } from "../contexts/UserContext";
 import CommentCard from "./CommentCard";
 import Lottie from "lottie-react";
 import loadingAnimation from "../assets/loadingAnimation.json";
 
 function Comments({ articleId }) {
   const [comments, setComments] = useState([]);
+  const [newCommentInput, setNewCommentInput] = useState("");
+  const [commentIsSubmitted, setCommentIsSubmitted] = useState(false);
+  const [commentIsDeleted, setCommentIsDeleted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const { user } = useContext(UserContext);
+
+  function handleChange(event) {
+    setNewCommentInput(event.target.value);
+    setCommentIsSubmitted(false);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    setIsLoading(true);
+    setIsError(false);
+    postNewComment(articleId, user, newCommentInput)
+      .then(() => {
+        setNewCommentInput("");
+        setCommentIsSubmitted(true);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsError(true);
+      });
+  }
 
   useEffect(() => {
     setIsLoading(true);
@@ -20,7 +45,7 @@ function Comments({ articleId }) {
         setIsLoading(false);
         setIsError(true);
       });
-  }, []);
+  }, [commentIsSubmitted]);
 
   if (isLoading) {
     return (
@@ -34,7 +59,20 @@ function Comments({ articleId }) {
 
   return (
     <div className="comments-list">
-      <h4>Comments</h4>
+      <h3>Comments</h3>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <input
+            name="new-comment"
+            type="text"
+            placeholder="Post a new comment..."
+            value={newCommentInput}
+            onChange={handleChange}
+            required
+          ></input>
+        </label>
+        <button>Submit</button>
+      </form>
       <ul>
         {comments.map((comment) => {
           return <CommentCard key={comment.comment_id} comment={comment} />;

@@ -8,29 +8,39 @@
 }
 
 .navbar {
-  background-color: rgb(51, 33, 85);
-  width: 200%;
+  position: fixed;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
   padding: 20px;
   display: flex;
   align-items: center;
 }
 
 .navbar h1 {
-  color: white;
-  font-size: 40px;
-  text-decoration: none;
+  font-size: 30px;
 }
 
 .navbar p {
-  color: white;
   margin-left: 16px;
-  text-decoration: none;
   padding: 6px;
+}
+
+.navbar button {
+  background-color: rgb(173, 158, 199);
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  padding: 10px;
+  margin-left: 20px;
+  text-align: center;
+  cursor: pointer;
 }
 
 main {
   width: 100%;
-  padding: 20px;
+  height: 100%;
+  padding: 50px;
+  padding-top: 120px;
   background-color: #f3f3f3;
 }
 
@@ -71,11 +81,11 @@ main {
 }
 
 .single-article {
-  width: 100%;
+  width: 95%;
   margin-left: 2%;
 }
 
-.single-article h3 {
+.single-article h2 {
   font-size: 30px;
 }
 
@@ -134,14 +144,18 @@ main {
 .comments-list {
   width: 100%;
   margin-top: 30px;
-  margin-bottom: 70px;
+  margin-bottom: 30px;
+}
+
+.comments-list h3 {
+  font-size: 20px;
 }
 
 .comment-card {
   width: 80%;
   padding: 10px;
   margin-bottom: 10px;
-  background-color: rgb(228, 220, 241);
+  background-color: rgb(237, 232, 245);
   border-radius: 8px;
 }
 
@@ -165,9 +179,9 @@ main {
 }
 
 footer {
-  /* position: fixed;
+  position: static;
   left: 0;
-  bottom: 0; */
+  bottom: 0;
   background-color: #f3f3f3;
   height: 40px;
   width: 100%;
