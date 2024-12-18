@@ -4,12 +4,12 @@ function ArticleCard({ article }) {
   return (
       <section className="article-card">
         <Link to={`/articles/${article.article_id}`}>
-          <h3>{article.title}</h3>
           <img
             className="all-articles-images"
             src={article.article_img_url}
             alt={article.title}
           />
+          <h3>{article.title}</h3>
         </Link>
         <p>Author: {article.author}</p>
         <p>Topic: {article.topic}</p>
