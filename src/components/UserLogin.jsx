@@ -8,16 +8,16 @@ function UserLogin() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  function handleSubmit(event) {
+  function handleLogin(event) {
     event.preventDefault();
     navigate("/");
-    setUser({ name: username });
+    setUser({ username: username });
   }
 
   return (
     <>
       <h2>Sign in to access your account</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleLogin}>
         <label>
           Username
           <input

@@ -2,8 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { fetchComments, postNewComment } from "../api";
 import { UserContext } from "../contexts/UserContext";
 import CommentCard from "./CommentCard";
-import Lottie from "lottie-react";
-import loadingAnimation from "../assets/loadingAnimation.json";
+import Loading from "./Loading";
 
 function Comments({ articleId }) {
   const [comments, setComments] = useState([]);
@@ -12,7 +11,7 @@ function Comments({ articleId }) {
   const [commentIsDeleted, setCommentIsDeleted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const { user } = useContext(UserContext);
+  const {user: {username} } = useContext(UserContext);
 
   function handleChange(event) {
     setNewCommentInput(event.target.value);
@@ -23,7 +22,7 @@ function Comments({ articleId }) {
     event.preventDefault();
     setIsLoading(true);
     setIsError(false);
-    postNewComment(articleId, user, newCommentInput)
+    postNewComment(articleId, username, newCommentInput)
       .then(() => {
         setNewCommentInput("");
         setCommentIsSubmitted(true);
@@ -45,12 +44,10 @@ function Comments({ articleId }) {
         setIsLoading(false);
         setIsError(true);
       });
-  }, [commentIsSubmitted]);
+  }, [commentIsSubmitted, commentIsDeleted]);
 
   if (isLoading) {
-    return (
-      <Lottie animationData={loadingAnimation} className="loading-animation" />
-    );
+    return <Loading/>
   }
 
   if (isError) {
@@ -75,7 +72,7 @@ function Comments({ articleId }) {
       </form>
       <ul>
         {comments.map((comment) => {
-          return <CommentCard key={comment.comment_id} comment={comment} />;
+          return <CommentCard key={comment.comment_id} comment={comment} setCommentIsDeleted={setCommentIsDeleted} />;
         })}
       </ul>
     </div>

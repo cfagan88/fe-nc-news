@@ -2,8 +2,7 @@ import { fetchArticle, patchArticleVotes } from "../api";
 import CommentsList from "./CommentsList";
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
-import Lottie from "lottie-react";
-import loadingAnimation from "../assets/loadingAnimation.json";
+import Loading from "./Loading";
 
 function SingleArticle() {
   const params = useParams();
@@ -46,9 +45,7 @@ function SingleArticle() {
   }
 
   if (isLoading) {
-    return (
-      <Lottie animationData={loadingAnimation} className="loading-animation" />
-    );
+    return <Loading />;
   }
 
   if (isError) {

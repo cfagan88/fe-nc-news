@@ -30,9 +30,20 @@ export const patchArticleVotes = (articleId, voteCount) => {
   return ncNewsApi.patch(`/articles/${articleId}`, { inc_votes: voteCount });
 };
 
-export const postNewComment = (articleId, {name}, commentText) => {
+export const postNewComment = (articleId, username, commentText) => {
   return ncNewsApi.post(`/articles/${articleId}/comments`, {
-    username: name,
+    username: username,
     body: commentText,
   });
 };
+
+export const deleteComment = (commentId) => {
+  return ncNewsApi.delete(`/comments/${commentId}`);
+};
+
+
+export const fetchTopics = () => {
+  return ncNewsApi.get(`/topics`).then(({ data: { topics } }) => {
+    return topics;
+  })
+}
