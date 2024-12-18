@@ -10,7 +10,9 @@ function Header() {
         <Link to="/">
           <p>All Articles</p>
         </Link>
-        <p>Topics</p>
+        <Link to="/topics">
+          <p>Topics</p>
+        </Link>
         <Link to="/user-login">
           <button>Login</button>
         </Link>

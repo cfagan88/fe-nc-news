@@ -1,8 +1,7 @@
 import ArticlesList from "./ArticlesList"
 import { fetchAllArticles } from "../api";
 import { useState, useEffect } from "react";
-import Lottie from "lottie-react";
-import loadingAnimation from "../assets/loadingAnimation.json";
+import Loading from "./Loading";
 
 function Articles() {
   const [articles, setArticles] = useState([]);
@@ -22,9 +21,7 @@ function Articles() {
     }, []);
 
     if (isLoading) {
-      return (
-        <Lottie animationData={loadingAnimation} className="loading-animation" />
-      );
+      return <Loading/>
     }
   
     if (isError) {
