@@ -17,6 +17,8 @@ function ArticleCard({ article }) {
       <p>{article.topic}</p>
       </Link>
       <p>{formatDate(article.created_at)}</p>
+      <p>Comments: {article.comment_count}</p>
+      <p>Votes: {article.votes}</p>
     </section>
   );
 }
