@@ -12,7 +12,9 @@ function App() {
       <Header />
       <main>
         <Routes>
-          <Route path="/" element={<Articles />}></Route>
+          <Route path="/" element={<Articles />}></Route>{" "}
+          {/* this causes an issue with my drop down filter, and the searchParams get appended to /, not /articles. How can I redirect?*/}
+          <Route path="/articles" element={<Articles />}></Route>
           <Route
             path="/articles/:article_id"
             element={<SingleArticle />}
