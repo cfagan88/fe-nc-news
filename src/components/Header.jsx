@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import loginIcon from "../assets/loginIcon.png"
 
 function Header() {
   return (
@@ -7,14 +8,15 @@ function Header() {
         <Link to="/">
           <h1>NC News</h1>
         </Link>
-        <Link to="/">
-          <p>All Articles</p>
+        <Link to="/articles">
+          <p>Home</p>
         </Link>
         <Link to="/topics">
           <p>Topics</p>
         </Link>
-        <Link to="/user-login">
-          <button>Login</button>
+        <Link to="/user-login" className="login">
+          <img className="login-icon" src={loginIcon} alt="login icon showing a silhouette of a user"/>
+          <p>Login</p>
         </Link>
       </nav>
     </header>

@@ -1,14 +1,15 @@
+import { Link } from "react-router";
+import capitaliseWord from "../utils/capitaliseWord";
+
 function TopicCard({ topic }) {
   return (
     <section className="topic-card">
-      <p>{topic.slug}</p>
-      <p>{topic.description}</p>
+      <Link to={`/articles?topic=${topic.slug}`}>
+        <h4>{capitaliseWord(topic.slug)}</h4>
+      </Link>
+        <p>{topic.description}</p>
     </section>
   );
-
-  // Format
-  // make links
-  // links need to filter articles on topic
 }
 
 export default TopicCard;

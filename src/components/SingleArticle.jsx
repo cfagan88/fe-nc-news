@@ -3,6 +3,8 @@ import CommentsList from "./CommentsList";
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import Loading from "./Loading";
+import formatDate from "../utils/formatDate";
+import { Link } from "react-router";
 
 function SingleArticle() {
   const params = useParams();
@@ -56,16 +58,18 @@ function SingleArticle() {
     <section className="single-article">
       <h2>{article.title}</h2>
       <p className="single-article-author">{article.author}</p>
-      <p>{article.created_at.split("T")[0]}</p>
+      <p>{formatDate(article.created_at)}</p>
       <img
         className="single-article-image"
         src={article.article_img_url}
         alt={article.title}
       />
       <p>{article.body}</p>
+      <Link to={`/articles?topic=${article.topic}`}>
       <p className="single-article-topic">
         See more articles on: {article.topic}
       </p>
+      </Link>
       <div className="single-article-voting">
         <button className="upvote" onClick={handleClickIncrement}></button>
         <p className="single-article-votes">{votesCount}</p>

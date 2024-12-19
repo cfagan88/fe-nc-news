@@ -1,16 +1,21 @@
-import ArticlesList from "./ArticlesList"
+import ArticlesList from "./ArticlesList";
 import { fetchAllArticles } from "../api";
 import { useState, useEffect } from "react";
 import Loading from "./Loading";
+import { useSearchParams } from "react-router-dom";
 
 function Articles() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-    useEffect(() => {
-      setIsLoading(true);
-      fetchAllArticles().then((articles) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const topicName = searchParams.get("topic");
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchAllArticles(topicName)
+      .then((articles) => {
         setArticles(articles);
         setIsLoading(false);
       })
@@ -18,19 +23,17 @@ function Articles() {
         setIsLoading(false);
         setIsError(true);
       });
-    }, []);
+  }, [searchParams]);
 
-    if (isLoading) {
-      return <Loading/>
-    }
-  
-    if (isError) {
-      return <p>Error Returning Data</p>;
-    }
+  if (isLoading) {
+    return <Loading />;
+  }
 
-  return (
-    <ArticlesList articles={articles}/>
-  )
+  if (isError) {
+    return <p>Error Returning Data</p>;
+  }
+
+  return <ArticlesList articles={articles} />;
 }
 
-export default Articles
+export default Articles;
