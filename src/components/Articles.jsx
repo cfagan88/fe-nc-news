@@ -8,13 +8,15 @@ function Articles() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-
   const [searchParams, setSearchParams] = useSearchParams();
   const topicName = searchParams.get("topic");
+  const sortByQuery = searchParams.get("sort_by");
+  const orderByQuery = searchParams.get("order");
+
 
   useEffect(() => {
     setIsLoading(true);
-    fetchAllArticles(topicName)
+    fetchAllArticles(topicName, sortByQuery, orderByQuery)
       .then((articles) => {
         setArticles(articles);
         setIsLoading(false);
@@ -33,7 +35,7 @@ function Articles() {
     return <p>Error Returning Data</p>;
   }
 
-  return <ArticlesList articles={articles} />;
+  return <ArticlesList articles={articles} setSearchParams={setSearchParams} />;
 }
 
 export default Articles;
