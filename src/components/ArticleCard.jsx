@@ -3,7 +3,7 @@ import formatDate from "../utils/formatDate";
 
 function ArticleCard({ article }) {
   return (
-    <section className="article-card">
+    <article className="article-card">
       <Link to={`/articles/${article.article_id}`}>
         <img
           className="all-articles-images"
@@ -19,7 +19,7 @@ function ArticleCard({ article }) {
       <p>{formatDate(article.created_at)}</p>
       <p>Comments: {article.comment_count}</p>
       <p>Votes: {article.votes}</p>
-    </section>
+    </article>
   );
 }
 

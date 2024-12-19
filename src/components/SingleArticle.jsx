@@ -29,8 +29,10 @@ function SingleArticle() {
   }, []);
 
   function handleClickIncrement() {
-    patchArticleVotes(articleId, 1).catch(() => {
+    patchArticleVotes(articleId, 1).catch((error) => {
+      setIsError(true);
       setVotesCount((currentVotesCount) => {
+        console.log("Vote could not be updated");
         return currentVotesCount - 1;
       });
     });
@@ -51,7 +53,7 @@ function SingleArticle() {
   }
 
   if (isError) {
-    return <p>Error Returning Data</p>;
+    return <p>Error Fetching Data</p>;
   }
 
   return (
@@ -66,11 +68,11 @@ function SingleArticle() {
       />
       <p>{article.body}</p>
       <Link to={`/articles?topic=${article.topic}`}>
-      <p className="single-article-topic">
-        See more articles on: {article.topic}
-      </p>
+        <p className="single-article-topic">
+          See more articles on: {article.topic}
+        </p>
       </Link>
-      <div className="single-article-voting">
+      <div className="vote">
         <button className="upvote" onClick={handleClickIncrement}></button>
         <p className="single-article-votes">{votesCount}</p>
         <button className="downvote" onClick={handleClickDecrement}></button>

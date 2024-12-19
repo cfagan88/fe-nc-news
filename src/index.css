@@ -135,29 +135,30 @@ main {
   font-weight: 500;
 }
 
-.upvote {
+.vote {
   display: inline-block;
   width: 0;
   height: 0;
+  outline: none;
+}
+
+.upvote {
   padding: 0;
   border: 0;
-  outline: none;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
   border-bottom: 20px solid green;
+  background-color: #f3f3f3;
   cursor: pointer;
 }
 
 .downvote {
-  display: inline-block;
-  width: 0;
-  height: 0;
   padding: 0;
   border: 0;
-  outline: none;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
   border-top: 20px solid red;
+  background-color: #f3f3f3;
   cursor: pointer;
 }
 

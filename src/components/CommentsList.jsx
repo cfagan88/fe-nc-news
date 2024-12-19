@@ -2,7 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import { fetchComments, postNewComment } from "../api";
 import { UserContext } from "../contexts/UserContext";
 import CommentCard from "./CommentCard";
-import Loading from "./Loading";
+import Lottie from "lottie-react";
+import loadingAnimation from "../assets/loadingAnimation.json";
 
 function Comments({ articleId }) {
   const [comments, setComments] = useState([]);
@@ -47,7 +48,7 @@ function Comments({ articleId }) {
   }, [commentIsSubmitted, commentIsDeleted]);
 
   if (isLoading) {
-    return <Loading/>
+    return <Lottie animationData={loadingAnimation} className="loading-animation" />
   }
 
   if (isError) {

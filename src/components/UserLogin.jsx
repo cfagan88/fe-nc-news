@@ -15,7 +15,7 @@ function UserLogin() {
   }
 
   return (
-    <>
+    <div>
       <h2>Sign in to access your account</h2>
       <form onSubmit={handleLogin}>
         <label>
@@ -46,7 +46,7 @@ function UserLogin() {
         </label>
         <button>Login</button>
       </form>
-    </>
+    </div>
   );
 }
 

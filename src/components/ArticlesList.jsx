@@ -1,6 +1,42 @@
 import ArticleCard from "./ArticleCard";
+import { fetchAllArticles } from "../api";
+import { useState, useEffect } from "react";
+import Lottie from "lottie-react";
+import loadingAnimation from "../assets/loadingAnimation.json";
+import { useSearchParams } from "react-router-dom";
 
-function ArticlesList({ articles, setSearchParams }) {
+function ArticlesList() {
+  const [articles, setArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const topicName = searchParams.get("topic");
+  const sortByQuery = searchParams.get("sort_by");
+  const orderByQuery = searchParams.get("order");
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchAllArticles(topicName, sortByQuery, orderByQuery)
+      .then((articles) => {
+        setArticles(articles);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setIsError(true);
+      });
+  }, [searchParams]);
+
+  if (isLoading) {
+    return (
+      <Lottie animationData={loadingAnimation} className="loading-animation" />
+    );
+  }
+
+  if (isError) {
+    return <p>Error Returning Data</p>;
+  }
+
   function handleChange(event) {
     if (event.target.value === "Date (newest first)") {
       setSearchParams("?sort_by=created_at");
@@ -36,7 +72,7 @@ function ArticlesList({ articles, setSearchParams }) {
   }
 
   return (
-    <>
+    <div>
       <h2 className="home-title">Latest Articles</h2>
       <select onChange={handleChange}>
         <option>Date (newest first)</option>
@@ -53,7 +89,7 @@ function ArticlesList({ articles, setSearchParams }) {
           return <ArticleCard key={article.article_id} article={article} />;
         })}
       </ul>
-    </>
+    </div>
   );
 }
 
