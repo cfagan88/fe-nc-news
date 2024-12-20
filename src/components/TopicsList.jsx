@@ -1,16 +1,18 @@
-import { useState, useEffect } from "react";
 import TopicCard from "./TopicCard";
-import Loading from "./Loading";
+import { useState, useEffect } from "react";
 import { fetchTopics } from "../api";
+import Lottie from "lottie-react";
+import loadingAnimation from "../assets/loadingAnimation.json";
+import Error from "./Error";
 
 function Topics() {
   const [topics, setTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState(false);
 
-
-useEffect(() => {
+  useEffect(() => {
     setIsLoading(true);
+    setError(null);
     fetchTopics()
       .then((topics) => {
         setTopics(topics);
@@ -18,24 +20,29 @@ useEffect(() => {
       })
       .catch((error) => {
         setIsLoading(false);
-        setIsError(true);
+        setError({
+          status: error.status,
+          msg: `Topics ${error.response.data.msg}`,
+        });
       });
   }, []);
 
   if (isLoading) {
-    return <Loading/>
+    return (
+      <Lottie animationData={loadingAnimation} className="loading-animation" />
+    );
   }
 
-  if (isError) {
-    return <p>Error Returning Data</p>;
+  if (error) {
+    return <Error status={error.status} msg={error.msg} />;
   }
 
   return (
     <ul>
-        {topics.map((topic) => {
-          return <TopicCard key={topic.slug} topic={topic} />;
-        })}
-      </ul>
+      {topics.map((topic) => {
+        return <TopicCard key={topic.slug} topic={topic} />;
+      })}
+    </ul>
   );
 }
 

@@ -1,14 +1,15 @@
 import ArticleCard from "./ArticleCard";
 import { fetchAllArticles } from "../api";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import Lottie from "lottie-react";
 import loadingAnimation from "../assets/loadingAnimation.json";
-import { useSearchParams } from "react-router-dom";
+import Error from "./Error";
 
 function ArticlesList() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const topicName = searchParams.get("topic");
   const sortByQuery = searchParams.get("sort_by");
@@ -16,6 +17,7 @@ function ArticlesList() {
 
   useEffect(() => {
     setIsLoading(true);
+    setError(null)
     fetchAllArticles(topicName, sortByQuery, orderByQuery)
       .then((articles) => {
         setArticles(articles);
@@ -23,7 +25,7 @@ function ArticlesList() {
       })
       .catch((error) => {
         setIsLoading(false);
-        setIsError(true);
+        setError({status: error.status, msg: `Article ${error.response.data.msg}`});
       });
   }, [searchParams]);
 
@@ -33,8 +35,8 @@ function ArticlesList() {
     );
   }
 
-  if (isError) {
-    return <p>Error Returning Data</p>;
+  if (error) {
+    return <Error status={error.status} msg={error.msg}/>;
   }
 
   function handleChange(event) {

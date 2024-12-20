@@ -110,7 +110,7 @@ main {
 }
 
 .single-article-author {
-  font-weight: 1000;
+  font-weight: bold;
 }
 
 .single-article-image {
@@ -181,7 +181,7 @@ main {
 }
 
 .comment-card-author {
-  font-weight: 1000;
+  font-weight: bold;
 }
 
 .comment-card-body {
@@ -214,12 +214,11 @@ footer {
   background-color: #f3f3f3;
   height: 40px;
   width: 100%;
-  text-align: center;
   border-top: 1px solid #333;
 }
 
 footer p {
-  display: inline;
-  margin: 20px;
-  width: 100%;
+  font-weight: bold;
+  margin-top: 8px;
+  margin-left: 20px;
 }

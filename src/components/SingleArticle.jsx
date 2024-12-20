@@ -1,21 +1,24 @@
-import { fetchArticle, patchArticleVotes } from "../api";
 import CommentsList from "./CommentsList";
+import { fetchArticle, patchArticleVotes } from "../api";
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
-import Loading from "./Loading";
-import formatDate from "../utils/formatDate";
 import { Link } from "react-router";
+import Lottie from "lottie-react";
+import loadingAnimation from "../assets/loadingAnimation.json";
+import Error from "./Error";
+import formatDate from "../utils/formatDate";
 
 function SingleArticle() {
   const params = useParams();
   const articleId = params.article_id;
   const [article, setArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState(null);
   const [votesCount, setVotesCount] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
+    setError(null);
     fetchArticle(articleId)
       .then((fetchedArticle) => {
         setArticle(fetchedArticle);
@@ -24,36 +27,43 @@ function SingleArticle() {
       })
       .catch((error) => {
         setIsLoading(false);
-        setIsError(true);
+        setError({
+          status: error.status,
+          msg: `Article ${error.response.data.msg}`,
+        });
       });
   }, []);
 
   function handleClickIncrement() {
     patchArticleVotes(articleId, 1).catch((error) => {
-      setIsError(true);
+      setError({ status: error.status, msg: error.response.data.msg });
       setVotesCount((currentVotesCount) => {
-        console.log("Vote could not be updated");
         return currentVotesCount - 1;
       });
     });
     setVotesCount((currentVotesCount) => currentVotesCount + 1);
+    setError(null);
   }
 
   function handleClickDecrement() {
     patchArticleVotes(articleId, -1).catch(() => {
+      setError({ status: error.status, msg: error.response.data.msg });
       setVotesCount((currentVotesCount) => {
         return currentVotesCount + 1;
       });
     });
     setVotesCount((currentVotesCount) => currentVotesCount - 1);
+    setError(null);
   }
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <Lottie animationData={loadingAnimation} className="loading-animation" />
+    );
   }
 
-  if (isError) {
-    return <p>Error Fetching Data</p>;
+  if (error) {
+    return <Error status={error.status} msg={error.msg} />;
   }
 
   return (

@@ -4,6 +4,7 @@ import { UserContext } from "../contexts/UserContext";
 import CommentCard from "./CommentCard";
 import Lottie from "lottie-react";
 import loadingAnimation from "../assets/loadingAnimation.json";
+import Error from "./Error";
 
 function Comments({ articleId }) {
   const [comments, setComments] = useState([]);
@@ -11,8 +12,10 @@ function Comments({ articleId }) {
   const [commentIsSubmitted, setCommentIsSubmitted] = useState(false);
   const [commentIsDeleted, setCommentIsDeleted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-  const {user: {username} } = useContext(UserContext);
+  const [error, setError] = useState(null);
+  const {
+    user: { username },
+  } = useContext(UserContext);
 
   function handleChange(event) {
     setNewCommentInput(event.target.value);
@@ -22,7 +25,7 @@ function Comments({ articleId }) {
   function handleSubmit(event) {
     event.preventDefault();
     setIsLoading(true);
-    setIsError(false);
+    setError(null);
     postNewComment(articleId, username, newCommentInput)
       .then(() => {
         setNewCommentInput("");
@@ -30,12 +33,13 @@ function Comments({ articleId }) {
         setIsLoading(false);
       })
       .catch((error) => {
-        setIsError(true);
+        setError({ status: error.status, msg: error.response.data.msg });
       });
   }
 
   useEffect(() => {
     setIsLoading(true);
+    setError(null);
     fetchComments(articleId)
       .then((comments) => {
         setComments(comments);
@@ -43,16 +47,18 @@ function Comments({ articleId }) {
       })
       .catch((error) => {
         setIsLoading(false);
-        setIsError(true);
+        setError({ status: error.status, msg: error.response.data.msg });
       });
   }, [commentIsSubmitted, commentIsDeleted]);
 
   if (isLoading) {
-    return <Lottie animationData={loadingAnimation} className="loading-animation" />
+    return (
+      <Lottie animationData={loadingAnimation} className="loading-animation" />
+    );
   }
 
-  if (isError) {
-    return <p>Error Returning Data</p>;
+  if (error) {
+    return <Error status={error.status} msg={error.msg} />;
   }
 
   return (
@@ -73,7 +79,13 @@ function Comments({ articleId }) {
       </form>
       <ul>
         {comments.map((comment) => {
-          return <CommentCard key={comment.comment_id} comment={comment} setCommentIsDeleted={setCommentIsDeleted} />;
+          return (
+            <CommentCard
+              key={comment.comment_id}
+              comment={comment}
+              setCommentIsDeleted={setCommentIsDeleted}
+            />
+          );
         })}
       </ul>
     </div>
