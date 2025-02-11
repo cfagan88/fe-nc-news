@@ -14,7 +14,8 @@ function Header() {
         <Link to="/topics">
           <p>Topics</p>
         </Link>
-        <Link to="/user-login" className="login">
+        <div className="login">
+        <Link to="/user-login">
           <img
             className="login-icon"
             src={loginIcon}
@@ -22,6 +23,7 @@ function Header() {
           />
           <p>Login</p>
         </Link>
+        </div>
       </nav>
     </header>
   );

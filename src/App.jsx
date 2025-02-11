@@ -8,9 +8,9 @@ import TopicsList from "./components/TopicsList";
 
 function App() {
   return (
-    <>
+    <main>
       <Header />
-      <main>
+      <div className="body">
         <Routes>
           <Route path="/" element={<ArticlesList />}></Route>{" "}
           <Route path="/articles" element={<ArticlesList />}></Route>
@@ -21,9 +21,9 @@ function App() {
           <Route path="/topics" element={<TopicsList />}></Route>
           <Route path="/user-login" element={<UserLogin />}></Route>
         </Routes>
-      </main>
+      </div>
       <Footer />
-    </>
+    </main>
   );
 }
 

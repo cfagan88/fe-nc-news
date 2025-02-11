@@ -17,7 +17,7 @@ function ArticlesList() {
 
   useEffect(() => {
     setIsLoading(true);
-    setError(null)
+    setError(null);
     fetchAllArticles(topicName, sortByQuery, orderByQuery)
       .then((articles) => {
         setArticles(articles);
@@ -25,7 +25,10 @@ function ArticlesList() {
       })
       .catch((error) => {
         setIsLoading(false);
-        setError({status: error.status, msg: `Article ${error.response.data.msg}`});
+        setError({
+          status: error.status,
+          msg: `Article ${error.response.data.msg}`,
+        });
       });
   }, [searchParams]);
 
@@ -36,7 +39,7 @@ function ArticlesList() {
   }
 
   if (error) {
-    return <Error status={error.status} msg={error.msg}/>;
+    return <Error status={error.status} msg={error.msg} />;
   }
 
   function handleChange(event) {
@@ -76,16 +79,18 @@ function ArticlesList() {
   return (
     <div>
       <h2 className="home-title">Latest Articles</h2>
-      <select onChange={handleChange}>
-        <option>Date (newest first)</option>
-        <option>Date (oldest first)</option>
-        <option>Author (A to Z)</option>
-        <option>Author (Z to A)</option>
-        <option>Comment count (high to low)</option>
-        <option>Comment count (low to high)</option>
-        <option>Votes (highest rated)</option>
-        <option>Votes (lowest rated)</option>
-      </select>
+      <div className="filter-dropdown">
+        <select onChange={handleChange}>
+          <option>Date (newest first)</option>
+          <option>Date (oldest first)</option>
+          <option>Author (A to Z)</option>
+          <option>Author (Z to A)</option>
+          <option>Comment count (high to low)</option>
+          <option>Comment count (low to high)</option>
+          <option>Votes (highest rated)</option>
+          <option>Votes (lowest rated)</option>
+        </select>
+      </div>
       <ul className="article-list">
         {articles.map((article) => {
           return <ArticleCard key={article.article_id} article={article} />;
